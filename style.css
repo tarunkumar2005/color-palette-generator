@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Iosevka+Charon:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Iosevka Charon", monospace;
 }
 
 body {
@@ -26,6 +29,20 @@ h1 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: #333;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 3px;
+  background-color: #667eea;
+  border-radius: 2px;
 }
 
 #generate-btn {
@@ -40,6 +57,15 @@ h1 {
   font-size: 1rem;
 }
 
+#generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(102, 126, 234, 0.3);
+}
+
+#generate-btn:active {
+  transform: translateY(0);
+}
+
 .palette-container {
   display: grid;
   gap: 1rem;
@@ -50,10 +76,16 @@ h1 {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.color-box:hover {
+  transform: translateY(-5px);
 }
 
 .color {
   height: 120px;
+  cursor: pointer;
 }
 
 .color-info {
@@ -68,4 +100,10 @@ h1 {
 .hex-value {
   font-weight: 500;
   letter-spacing: 0.5px;
+}
+
+@media (max-width:768px) {
+  .palette-container {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
 }
