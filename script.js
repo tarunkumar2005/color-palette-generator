@@ -4,6 +4,13 @@ const palleteContainer = document.querySelector(".palette-container");
 generatePallete();
 
 generateButton.addEventListener("click", generatePallete);
+palleteContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("copy-btn")) {
+    const hexValue = e.target.previousElementSibling.textContent;
+
+    navigator.clipboard.writeText(hexValue).catch((err) => console.log(err))
+  }
+})
 
 function generatePallete() {
   const colors = []
