@@ -1,6 +1,9 @@
 const generateButton = document.getElementById('generate-btn');
 const palleteContainer = document.querySelector(".palette-container");
 
+let lockedArray = new Array(5).fill(false);
+let colors = new Array(5).fill('');
+
 generatePallete();
 
 generateButton.addEventListener("click", generatePallete);
@@ -17,8 +20,34 @@ palleteContainer.addEventListener("click", (e) => {
     navigator.clipboard.writeText(hexValue)
     .then(() => showCopySuccess(e.target.nextElementSibling.querySelector(".copy-btn")))
     .catch((err) => console.log(err))
+  } else if (e.target.classList.contains("lock-btn")) {
+    lockColor(e.target);
   }
 })
+
+function lockColor(element) {
+  clickedBox = element.closest(".color-box");
+  allBoxes = document.querySelectorAll(".color-box");
+
+  allBoxesArray = Array.from(allBoxes);
+
+  let index = allBoxesArray.indexOf(clickedBox);
+  if (element.classList.contains("fa-lock-open")) {
+    element.classList.remove("fas", "fa-lock-open");
+    element.classList.add("fas", "fa-lock")
+    element.title = "Unlock"
+
+    lockedArray[index] = true;
+  } else if (element.classList.contains("fa-lock")) {
+    element.classList.remove("fas", "fa-lock")
+    element.classList.add("fas", "fa-lock-open");
+    element.title = "Lock"
+
+    lockedArray[index] = false;
+  } else {
+    console.log("Error")
+  }
+}
 
 function showCopySuccess(element) {
   element.classList.remove("far", "fa-copy");
@@ -34,10 +63,12 @@ function showCopySuccess(element) {
 }
 
 function generatePallete() {
-  const colors = []
-
   for (let i = 0; i<5; i++) {
-    colors.push(generateRandomColor())
+    if (lockedArray[i] === true) {
+      continue;
+    } else {
+      colors[i] = generateRandomColor();
+    }
   }
 
   updatePalleteDisplay(colors);

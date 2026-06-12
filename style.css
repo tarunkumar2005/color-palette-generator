@@ -112,6 +112,16 @@ h1::after {
   color: #667eea;
 }
 
+.lock-btn {
+  cursor: pointer;
+  color: #64748b;
+  transition: color 0.2s;
+}
+
+.lock-btn:hover {
+  color: #667eea;
+}
+
 @media (max-width:768px) {
   .palette-container {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
